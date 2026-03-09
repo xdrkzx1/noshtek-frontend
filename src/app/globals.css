@@ -1,33 +1,47 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --trust-blue: #0f172a;
+  --innovation-teal: #14b8a6;
+  --tech-purple: #8b5cf6;
+  --bg-primary: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --border-color: #e5e7eb;
+  --bg-secondary: #f3f4f6;
+
+  --font-heading: var(--font-outfit), 'Outfit', sans-serif;
+  --font-body: var(--font-inter), 'Inter', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+[data-theme='high-contrast'] {
+  --trust-blue: #000000;
+  --innovation-teal: #00ffff;
+  --tech-purple: #ff00ff;
+  --bg-primary: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border-color: #ffffff;
+  --bg-secondary: #222222;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 a {
@@ -35,8 +49,132 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Base layouts */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Reusable Components */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--innovation-teal);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background-color: var(--trust-blue);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1e293b;
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  background-color: var(--innovation-teal);
+  color: #fff;
+}
+
+.btn-accent:hover {
+  background-color: #0f766e;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--trust-blue);
+  border: 1px solid var(--trust-blue);
+}
+
+.btn-outline:hover {
+  background-color: var(--trust-blue);
+  color: #fff;
+}
+
+[data-theme='high-contrast'] .btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+}
+[data-theme='high-contrast'] .btn-accent {
+  background-color: var(--innovation-teal);
+  color: #000000;
+}
+[data-theme='high-contrast'] .btn-outline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+[data-theme='high-contrast'] .btn-outline:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-16 { margin-top: 4rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+.py-32 { padding-top: 8rem; padding-bottom: 8rem; }
+
+/* Grid */
+.grid { display: grid; gap: 2rem; }
+.grid-cols-1 { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Beautiful Accents */
+.text-gradient {
+  background: linear-gradient(90deg, var(--trust-blue) 0%, var(--innovation-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme='high-contrast'] .text-gradient {
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.bg-pattern {
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
